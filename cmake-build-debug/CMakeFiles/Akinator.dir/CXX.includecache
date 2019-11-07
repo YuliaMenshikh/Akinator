@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/yulia/Desktop/git/DedTasks/Akinator/Akinator.cpp
+Akinator.h
+/Users/yulia/Desktop/git/DedTasks/Akinator/Akinator.h
+Settings.h
+/Users/yulia/Desktop/git/DedTasks/Akinator/Settings.h
+iostream
+-
+vector
+-
+
+/Users/yulia/Desktop/git/DedTasks/Akinator/Akinator.h
+map
+-
+Text.h
+/Users/yulia/Desktop/git/DedTasks/Akinator/Text.h
+Node.h
+/Users/yulia/Desktop/git/DedTasks/Akinator/Node.h
+
+/Users/yulia/Desktop/git/DedTasks/Akinator/Node.h
+string
+-
+
+/Users/yulia/Desktop/git/DedTasks/Akinator/Settings.h
+
+/Users/yulia/Desktop/git/DedTasks/Akinator/Text.h
+stdio.h
+-
+
+/Users/yulia/Desktop/git/DedTasks/Akinator/main.cpp
+iostream
+-
+Akinator.h
+/Users/yulia/Desktop/git/DedTasks/Akinator/Akinator.h
+
