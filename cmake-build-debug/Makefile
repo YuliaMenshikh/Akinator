@@ -48,10 +48,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/yulia/Desktop/git/DedTasks/Akinator
+CMAKE_SOURCE_DIR = /Users/yulia/Desktop/git/Akinator
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/yulia/Desktop/git/DedTasks/Akinator/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/yulia/Desktop/git/Akinator/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/yulia/Desktop/git/DedTasks/Akinator/cmake-build-debug/CMakeFiles /Users/yulia/Desktop/git/DedTasks/Akinator/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/yulia/Desktop/git/Akinator/cmake-build-debug/CMakeFiles /Users/yulia/Desktop/git/Akinator/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/yulia/Desktop/git/DedTasks/Akinator/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/yulia/Desktop/git/Akinator/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -123,86 +123,86 @@ Akinator/fast:
 	$(MAKE) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/build
 .PHONY : Akinator/fast
 
-Akinator.o: Akinator.cpp.o
+src/Akinator.o: src/Akinator.cpp.o
 
-.PHONY : Akinator.o
-
-# target to build an object file
-Akinator.cpp.o:
-	$(MAKE) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/Akinator.cpp.o
-.PHONY : Akinator.cpp.o
-
-Akinator.i: Akinator.cpp.i
-
-.PHONY : Akinator.i
-
-# target to preprocess a source file
-Akinator.cpp.i:
-	$(MAKE) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/Akinator.cpp.i
-.PHONY : Akinator.cpp.i
-
-Akinator.s: Akinator.cpp.s
-
-.PHONY : Akinator.s
-
-# target to generate assembly for a file
-Akinator.cpp.s:
-	$(MAKE) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/Akinator.cpp.s
-.PHONY : Akinator.cpp.s
-
-Text.o: Text.cpp.o
-
-.PHONY : Text.o
+.PHONY : src/Akinator.o
 
 # target to build an object file
-Text.cpp.o:
-	$(MAKE) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/Text.cpp.o
-.PHONY : Text.cpp.o
+src/Akinator.cpp.o:
+	$(MAKE) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/src/Akinator.cpp.o
+.PHONY : src/Akinator.cpp.o
 
-Text.i: Text.cpp.i
+src/Akinator.i: src/Akinator.cpp.i
 
-.PHONY : Text.i
+.PHONY : src/Akinator.i
 
 # target to preprocess a source file
-Text.cpp.i:
-	$(MAKE) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/Text.cpp.i
-.PHONY : Text.cpp.i
+src/Akinator.cpp.i:
+	$(MAKE) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/src/Akinator.cpp.i
+.PHONY : src/Akinator.cpp.i
 
-Text.s: Text.cpp.s
+src/Akinator.s: src/Akinator.cpp.s
 
-.PHONY : Text.s
+.PHONY : src/Akinator.s
 
 # target to generate assembly for a file
-Text.cpp.s:
-	$(MAKE) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/Text.cpp.s
-.PHONY : Text.cpp.s
+src/Akinator.cpp.s:
+	$(MAKE) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/src/Akinator.cpp.s
+.PHONY : src/Akinator.cpp.s
 
-main.o: main.cpp.o
+src/Text.o: src/Text.cpp.o
 
-.PHONY : main.o
+.PHONY : src/Text.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/main.cpp.o
-.PHONY : main.cpp.o
+src/Text.cpp.o:
+	$(MAKE) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/src/Text.cpp.o
+.PHONY : src/Text.cpp.o
 
-main.i: main.cpp.i
+src/Text.i: src/Text.cpp.i
 
-.PHONY : main.i
+.PHONY : src/Text.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/main.cpp.i
-.PHONY : main.cpp.i
+src/Text.cpp.i:
+	$(MAKE) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/src/Text.cpp.i
+.PHONY : src/Text.cpp.i
 
-main.s: main.cpp.s
+src/Text.s: src/Text.cpp.s
 
-.PHONY : main.s
+.PHONY : src/Text.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/main.cpp.s
-.PHONY : main.cpp.s
+src/Text.cpp.s:
+	$(MAKE) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/src/Text.cpp.s
+.PHONY : src/Text.cpp.s
+
+src/main.o: src/main.cpp.o
+
+.PHONY : src/main.o
+
+# target to build an object file
+src/main.cpp.o:
+	$(MAKE) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
+
+src/main.i: src/main.cpp.i
+
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.cpp.i:
+	$(MAKE) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
+
+src/main.s: src/main.cpp.s
+
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.cpp.s:
+	$(MAKE) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
 
 # Help Target
 help:
@@ -213,15 +213,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Akinator"
-	@echo "... Akinator.o"
-	@echo "... Akinator.i"
-	@echo "... Akinator.s"
-	@echo "... Text.o"
-	@echo "... Text.i"
-	@echo "... Text.s"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... src/Akinator.o"
+	@echo "... src/Akinator.i"
+	@echo "... src/Akinator.s"
+	@echo "... src/Text.o"
+	@echo "... src/Text.i"
+	@echo "... src/Text.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 .PHONY : help
 
 

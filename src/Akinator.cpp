@@ -90,7 +90,7 @@ void Akinator::Run()
     }
 }
 
-void Akinator::Definition(std::string name)
+void Akinator::Definition(const std::string& name)
 {
     std::vector<std::string> def;
     if (_characters.count(name)) {
@@ -119,7 +119,7 @@ void Akinator::Definition(std::string name)
     }
 }
 
-void Akinator::Compare(std::string first, std::string second)
+void Akinator::Compare(const std::string& first, const std::string& second)
 {
     Node *node1, *node2;
     if (_characters.count(first))
@@ -271,19 +271,27 @@ void Akinator::DfsWriteDot(Node* node, FILE* file)
 {
     if (node->yes)
     {
+        fputc('"', file);
         for (char i : node->question)
             fputc(i, file);
+        fputc('"', file);
         fputs("->", file);
+        fputc('"', file);
         for (char i : node->yes->question)
             fputc(i, file);
-        fputs("\n", file);
+        fputc('"', file);
+        fputs(";\n", file);
 
+        fputc('"', file);
         for (char i : node->question)
             fputc(i, file);
+        fputc('"', file);
         fputs("->", file);
+        fputc('"', file);
         for (char i : node->no->question)
             fputc(i, file);
-        fputs("\n", file);
+        fputc('"', file);
+        fputs(";\n", file);
 
         DfsWriteDot(node->yes, file);
         DfsWriteDot(node->no, file);

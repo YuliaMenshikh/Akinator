@@ -6,37 +6,45 @@
 
 #IncludeRegexTransform: 
 
-/Users/yulia/Desktop/git/DedTasks/Akinator/Akinator.cpp
+/Users/yulia/Desktop/git/Akinator/src/Akinator.cpp
 Akinator.h
-/Users/yulia/Desktop/git/DedTasks/Akinator/Akinator.h
+/Users/yulia/Desktop/git/Akinator/src/Akinator.h
 Settings.h
-/Users/yulia/Desktop/git/DedTasks/Akinator/Settings.h
+/Users/yulia/Desktop/git/Akinator/src/Settings.h
 iostream
 -
 vector
 -
 
-/Users/yulia/Desktop/git/DedTasks/Akinator/Akinator.h
+/Users/yulia/Desktop/git/Akinator/src/Akinator.h
 map
 -
 Text.h
-/Users/yulia/Desktop/git/DedTasks/Akinator/Text.h
+/Users/yulia/Desktop/git/Akinator/src/Text.h
 Node.h
-/Users/yulia/Desktop/git/DedTasks/Akinator/Node.h
+/Users/yulia/Desktop/git/Akinator/src/Node.h
 
-/Users/yulia/Desktop/git/DedTasks/Akinator/Node.h
+/Users/yulia/Desktop/git/Akinator/src/Node.h
 string
 -
 
-/Users/yulia/Desktop/git/DedTasks/Akinator/Settings.h
+/Users/yulia/Desktop/git/Akinator/src/Settings.h
 
-/Users/yulia/Desktop/git/DedTasks/Akinator/Text.h
+/Users/yulia/Desktop/git/Akinator/src/Text.cpp
+Text.h
+/Users/yulia/Desktop/git/Akinator/src/Text.h
+sys/stat.h
+-
+cstdint
+-
+
+/Users/yulia/Desktop/git/Akinator/src/Text.h
 stdio.h
 -
 
-/Users/yulia/Desktop/git/DedTasks/Akinator/main.cpp
+/Users/yulia/Desktop/git/Akinator/src/main.cpp
 iostream
 -
 Akinator.h
-/Users/yulia/Desktop/git/DedTasks/Akinator/Akinator.h
+/Users/yulia/Desktop/git/Akinator/src/Akinator.h
 

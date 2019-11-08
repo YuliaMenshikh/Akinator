@@ -38,14 +38,14 @@ public:
      * Give definition to character
      * @param name - name of the character
      */
-    void Definition(std::string name);
+    void Definition(const std::string& name);
 
     /*!
      * Compare two characters
      * @param first - name of the first character
      * @param second - name of the second character
      */
-    void Compare(std::string first, std::string second);
+    void Compare(const std::string& first, const std::string& second);
 
 private:
     /*!

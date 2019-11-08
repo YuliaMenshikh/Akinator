@@ -1,9 +1,9 @@
 file(REMOVE_RECURSE
   "Akinator"
   "Akinator.pdb"
-  "CMakeFiles/Akinator.dir/Akinator.cpp.o"
-  "CMakeFiles/Akinator.dir/Text.cpp.o"
-  "CMakeFiles/Akinator.dir/main.cpp.o"
+  "CMakeFiles/Akinator.dir/src/Akinator.cpp.o"
+  "CMakeFiles/Akinator.dir/src/Text.cpp.o"
+  "CMakeFiles/Akinator.dir/src/main.cpp.o"
 )
 
 # Per-language clean rules from dependency scanning.
