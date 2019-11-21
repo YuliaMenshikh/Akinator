@@ -3,9 +3,12 @@
 
 #include <iostream>
 #include <vector>
+#include <cstdlib>
+#include <cstring>
 
 Akinator::Akinator()
 {
+    epilogue = '\"';
     _root = new Node("никто", nullptr, false);
     _characters[_root->question] = _root;
 }
@@ -25,7 +28,16 @@ Akinator::~Akinator()
     Delete(_root);
 }
 
-
+void Akinator::write()
+{
+    std::cout << buffer;
+    const char* ss = buffer.c_str();
+    char new_buf[1024] = "";
+    strcat(new_buf, prologue);
+    strcat(new_buf, ss);
+    strcat(new_buf, "\"");
+    system(new_buf);
+}
 
 
 void Akinator::Run()
@@ -36,22 +48,27 @@ void Akinator::Run()
     {
         if (!current->yes)
         {
-            std::cout << "Это был " << current->question << ". Не так ли?\n1 - yes\n0 - no\n";
+            buffer = "Это был " + current->question + ". Не так ли?\n";
+            write();
+            std::cout << "1 - yes\n0 - no\n";
             bool guess = false;
             std::cin >> guess;
 
             if (guess)
             {
-                std::cout << "Урааа!!! Все-таки я был прав\n";
+                buffer = "Урааа!!! Все-таки я была права\n";
+                write();
             }
             else
             {
-                std::cout << "Какая жалость. Кто же это был?\n";
+                buffer = "Какая жалость. Кто же это был?\n";
+                write();
                 std::string newPearson;
                 std::cin >> newPearson;
                 if (!_characters.count(newPearson))
                 {
-                    std::cout << "Чем же " << current->question << " отличается от " << newPearson << "?\n";
+                    buffer = "Чем же " + current->question + " отличается от " + newPearson + "?\n";
+                    write();
                     std::string newQuestion;
                     char c;
                     while ((c = getchar()) != '\n')
@@ -64,18 +81,22 @@ void Akinator::Run()
                 }
                 else
                 {
-                    std::cout << "Такой персонаж уже есть. Вот его определение:\n";
+                    buffer = "Такой персонаж уже есть. Вот его определение:\n";
+                    write();
                     Definition(newPearson);
                 }
             }
-
-            std::cout << "Вы хотите сыграть еще?\n1 - yes\n0 - no\n";
+            buffer = "Вы хотите сыграть еще?\n";
+            write();
+            std::cout << "1 - yes\n0 - no\n";
             std::cin >> more;
             current = _root;
         }
         else
         {
-            std::cout << current->question << "?\n1 - yes\n0 - no\n";
+            buffer = current->question + "?\n";
+            write();
+            std::cout << "1 - yes\n0 - no\n";
             bool answer = false;
             std::cin >> answer;
             if (answer)
@@ -115,7 +136,8 @@ void Akinator::Definition(const std::string& name)
     }
     else
     {
-        std::cout << "Нет такого персонажа\n";
+        buffer = "Нет такого персонажа\n";
+        write();
     }
 }
 
@@ -128,7 +150,8 @@ void Akinator::Compare(const std::string& first, const std::string& second)
     }
     else
     {
-        std::cout << "Нет персонажа " << first << '\n';
+        buffer = "Нет персонажа " + first + '\n';
+        write();
         return;
     }
     if (_characters.count(second))
@@ -137,7 +160,8 @@ void Akinator::Compare(const std::string& first, const std::string& second)
     }
     else
     {
-        std::cout << "Нет персонажа " << second << '\n';
+        buffer = "Нет персонажа " + second + '\n';
+        write();
         return;
     }
 
@@ -239,6 +263,13 @@ void Akinator::WriteToDotFile(const char *fileOut)
     fclose(file);
 }
 
+void Akinator::ShowDotFile()
+{
+    WriteToDotFile("tree.dot");
+    system("dot tree.dot -Tpng -o tree.png");
+    system("open tree.png ");
+}
+
 void Akinator::WriteToBaseFile(const char *fileOut)
 {
     FILE* file = nullptr;
@@ -272,6 +303,12 @@ void Akinator::DfsWriteDot(Node* node, FILE* file)
     if (node->yes)
     {
         fputc('"', file);
+        for (char i : node->yes->question)
+            fputc(i, file);
+        fputc('"', file);
+        fputs("[style = filled, fillcolor = darkolivegreen1];\n", file);
+
+        fputc('"', file);
         for (char i : node->question)
             fputc(i, file);
         fputc('"', file);
@@ -280,7 +317,14 @@ void Akinator::DfsWriteDot(Node* node, FILE* file)
         for (char i : node->yes->question)
             fputc(i, file);
         fputc('"', file);
+        fputs("[color = forestgreen]", file);
         fputs(";\n", file);
+
+        fputc('"', file);
+        for (char i : node->no->question)
+            fputc(i, file);
+        fputc('"', file);
+        fputs("[style = filled, fillcolor = indianred1];\n", file);
 
         fputc('"', file);
         for (char i : node->question)
@@ -291,7 +335,7 @@ void Akinator::DfsWriteDot(Node* node, FILE* file)
         for (char i : node->no->question)
             fputc(i, file);
         fputc('"', file);
-        fputs(";\n", file);
+        fputs("[color = indianred1];\n", file);
 
         DfsWriteDot(node->yes, file);
         DfsWriteDot(node->no, file);
@@ -342,7 +386,7 @@ Node* Akinator::ReadNode(const Text& text, int& ind, Node* parent, bool comeBy)
         currentNode->yes = ReadNode(text, ind, currentNode, true);
         while (ind < text.Size() && text[ind] != symbol_of_string)
             ind++;
-        currentNode->no = ReadNode(text, ind, currentNode, true);
+        currentNode->no = ReadNode(text, ind, currentNode, false);
     }
     else
     {

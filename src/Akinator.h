@@ -47,6 +47,8 @@ public:
      */
     void Compare(const std::string& first, const std::string& second);
 
+    void ShowDotFile();
+
 private:
     /*!
      * Root of the tree
@@ -64,6 +66,12 @@ private:
 
     const char* fileName;
     const char* dotFileName;
+
+    std::string buffer;
+
+    char prologue[15] = {'s', 'a', 'y', ' ', '-', 'v', ' ', 'M', 'i', 'l', 'e', 'n', 'a', ' ', '\"'};
+    char epilogue;
+    void write();
 
     /*!
      * Write tree to the file with dot format
