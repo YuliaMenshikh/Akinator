@@ -5,7 +5,6 @@ void ClientCode()
 {
     Akinator* akinator = new Akinator("tree.txt");
     bool more = true;
-    akinator->ShowDotFile();
     std::cout << "Привет) Я умею угадывать различных персонажей. Сыграем?)\n";
     system("say -v Milena \"Привет) Я умею угадывать различных персонажей. Сыграем?)\"");
     while (more)

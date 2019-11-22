@@ -8,7 +8,6 @@
 
 Akinator::Akinator()
 {
-    epilogue = '\"';
     _root = new Node("никто", nullptr, false);
     _characters[_root->question] = _root;
 }
@@ -33,9 +32,9 @@ void Akinator::write()
     std::cout << buffer;
     const char* ss = buffer.c_str();
     char new_buf[1024] = "";
-    strcat(new_buf, prologue);
+    strcat(new_buf, prologue_to_show_tree);
     strcat(new_buf, ss);
-    strcat(new_buf, "\"");
+    strcat(new_buf, epilogue_to_show_tree);
     system(new_buf);
 }
 
@@ -50,13 +49,13 @@ void Akinator::Run()
         {
             buffer = "Это был " + current->question + ". Не так ли?\n";
             write();
-            std::cout << "1 - yes\n0 - no\n";
+            std::cout << standart_choice;
             bool guess = false;
             std::cin >> guess;
 
             if (guess)
             {
-                buffer = "Урааа!!! Все-таки я была права\n";
+                buffer = "Урааа!!! Все-таки я была права.\n";
                 write();
             }
             else
@@ -70,10 +69,12 @@ void Akinator::Run()
                     buffer = "Чем же " + current->question + " отличается от " + newPearson + "?\n";
                     write();
                     std::string newQuestion;
-                    char c;
-                    while ((c = getchar()) != '\n')
+                    char c = getchar();
+                    c = getchar();
+                    while (c != '\n')
                     {
                         newQuestion += c;
+                        c = getchar();
                     }
                     current->Split(newQuestion, newPearson);
                     _characters[current->yes->question] = current->yes;
@@ -88,7 +89,7 @@ void Akinator::Run()
             }
             buffer = "Вы хотите сыграть еще?\n";
             write();
-            std::cout << "1 - yes\n0 - no\n";
+            std::cout << standart_choice;
             std::cin >> more;
             current = _root;
         }
@@ -96,7 +97,7 @@ void Akinator::Run()
         {
             buffer = current->question + "?\n";
             write();
-            std::cout << "1 - yes\n0 - no\n";
+            std::cout << standart_choice;
             bool answer = false;
             std::cin >> answer;
             if (answer)
@@ -255,19 +256,19 @@ void Akinator::WriteToDotFile(const char *fileOut)
 {
     FILE* file = nullptr;
     file = fopen(fileOut, "w");
-    fputs("Digraph{\n", file);
+    fputs(prologue_Digraph, file);
 
     DfsWriteDot(_root, file);
 
-    fputc('}', file);
+    fputc(close_delim, file);
     fclose(file);
 }
 
 void Akinator::ShowDotFile()
 {
-    WriteToDotFile("tree.dot");
+    WriteToDotFile(dotFileName);
     system("dot tree.dot -Tpng -o tree.png");
-    system("open tree.png ");
+    system("open tree.png");
 }
 
 void Akinator::WriteToBaseFile(const char *fileOut)
@@ -302,40 +303,33 @@ void Akinator::DfsWriteDot(Node* node, FILE* file)
 {
     if (node->yes)
     {
-        fputc('"', file);
-        for (char i : node->yes->question)
-            fputc(i, file);
-        fputc('"', file);
-        fputs("[style = filled, fillcolor = darkolivegreen1];\n", file);
+        fputc(symbol_of_string, file);
+        fputs(node->yes->question.c_str(), file);
+        fputc(symbol_of_string, file);
+        fputs(filled_green, file);
 
-        fputc('"', file);
-        for (char i : node->question)
-            fputc(i, file);
-        fputc('"', file);
-        fputs("->", file);
-        fputc('"', file);
-        for (char i : node->yes->question)
-            fputc(i, file);
-        fputc('"', file);
-        fputs("[color = forestgreen]", file);
-        fputs(";\n", file);
+        fputc(symbol_of_string, file);
+        fputs(node->question.c_str(), file);
+        fputc(symbol_of_string, file);
+        fputs(arrow, file);
+        fputc(symbol_of_string, file);
+        fputs(node->yes->question.c_str(), file);
+        fputc(symbol_of_string, file);
+        fputs(end_of_str, file);
 
-        fputc('"', file);
-        for (char i : node->no->question)
-            fputc(i, file);
-        fputc('"', file);
-        fputs("[style = filled, fillcolor = indianred1];\n", file);
+        fputc(symbol_of_string, file);
+        fputs(node->no->question.c_str(), file);
+        fputc(symbol_of_string, file);
+        fputs(filled_red, file);
 
-        fputc('"', file);
-        for (char i : node->question)
-            fputc(i, file);
-        fputc('"', file);
-        fputs("->", file);
-        fputc('"', file);
-        for (char i : node->no->question)
-            fputc(i, file);
-        fputc('"', file);
-        fputs("[color = indianred1];\n", file);
+        fputc(symbol_of_string, file);
+        fputs(node->question.c_str(), file);
+        fputc(symbol_of_string, file);
+        fputs(arrow, file);
+        fputc(symbol_of_string, file);
+        fputs(node->no->question.c_str(), file);
+        fputc(symbol_of_string, file);
+        fputs(end_of_str, file);
 
         DfsWriteDot(node->yes, file);
         DfsWriteDot(node->no, file);

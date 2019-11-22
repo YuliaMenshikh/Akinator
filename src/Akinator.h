@@ -27,7 +27,7 @@ public:
      */
     ~Akinator();
 
-    //There are 3 operating mode
+    //There are 4 operating mode
 
     /*!
      * Training and guessing
@@ -47,6 +47,9 @@ public:
      */
     void Compare(const std::string& first, const std::string& second);
 
+    /*!
+     * Show png with tree.
+     */
     void ShowDotFile();
 
 private:
@@ -69,8 +72,6 @@ private:
 
     std::string buffer;
 
-    char prologue[15] = {'s', 'a', 'y', ' ', '-', 'v', ' ', 'M', 'i', 'l', 'e', 'n', 'a', ' ', '\"'};
-    char epilogue;
     void write();
 
     /*!
