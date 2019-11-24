@@ -43,7 +43,7 @@ void Akinator::Run()
 {
     Node* current = _root;
     bool more = true;
-    while(more)
+    while (more)
     {
         if (!current->yes)
         {
@@ -60,32 +60,7 @@ void Akinator::Run()
             }
             else
             {
-                buffer = "Какая жалость. Кто же это был?\n";
-                write();
-                std::string newPearson;
-                std::cin >> newPearson;
-                if (!_characters.count(newPearson))
-                {
-                    buffer = "Чем же " + current->question + " отличается от " + newPearson + "?\n";
-                    write();
-                    std::string newQuestion;
-                    char c = getchar();
-                    c = getchar();
-                    while (c != '\n')
-                    {
-                        newQuestion += c;
-                        c = getchar();
-                    }
-                    current->Split(newQuestion, newPearson);
-                    _characters[current->yes->question] = current->yes;
-                    _characters[current->no->question] = current->no;
-                }
-                else
-                {
-                    buffer = "Такой персонаж уже есть. Вот его определение:\n";
-                    write();
-                    Definition(newPearson);
-                }
+                NotGuessCase(current);
             }
             buffer = "Вы хотите сыграть еще?\n";
             write();
@@ -112,6 +87,31 @@ void Akinator::Run()
     }
 }
 
+void Akinator::NotGuessCase(Node *current)
+{
+    buffer = "Какая жалость. Кто же это был?\n";
+    write();
+    std::string newPearson;
+    std::cin >> newPearson;
+    if (!_characters.count(newPearson))
+    {
+        buffer = "Чем же " + current->question + " отличается от " + newPearson + "?\n";
+        write();
+        std::string newQuestion;
+        getchar();
+        getline(std::cin, newQuestion);
+        current->Split(newQuestion, newPearson);
+        _characters[current->yes->question] = current->yes;
+        _characters[current->no->question] = current->no;
+    }
+    else
+    {
+        buffer = "Такой персонаж уже есть. Вот его определение:\n";
+        write();
+        Definition(newPearson);
+    }
+}
+
 void Akinator::Definition(const std::string& name)
 {
     std::vector<std::string> def;
@@ -125,7 +125,7 @@ void Akinator::Definition(const std::string& name)
             if (comeBy)
                 def.push_back(current->question);
             else
-                def.push_back("не " + current->question);
+                def.push_back(negition + current->question);
         }
         std::cout << "Определение " << name << ": ";
         for (int i = def.size() - 1; i >= 0; --i)
@@ -142,29 +142,63 @@ void Akinator::Definition(const std::string& name)
     }
 }
 
+Node* Akinator::GetCharacter(const std::string &character, bool& NoCharacter)
+{
+    if (_characters.count(character))
+    {
+        return _characters[character];
+    }
+    else
+    {
+        buffer = "Нет персонажа " + character + '\n';
+        write();
+        NoCharacter = true;
+        return nullptr;
+    }
+}
+
+void Akinator::PrintDefinition(const std::string& first, const std::string& second, std::vector<std::string> &def,
+        std::vector<std::string> &def1, std::vector<std::string> &def2)
+{
+    std::cout << "Общее: ";
+    for (int i = def.size() - 1; i >= 0; --i)
+    {
+        std::cout << def[i] << ", ";
+    }
+    std::cout << '\n' << first << ": ";
+    for (int i = def1.size() - 1; i >= 0; --i)
+    {
+        std::cout << def1[i] << ", ";
+    }
+    std::cout << '\n' << second << ": ";
+    for (int i = def2.size() - 1; i >= 0; --i)
+    {
+        std::cout << def2[i] << ", ";
+    }
+    std::cout << '\n';
+}
+
+void Akinator::GoToOneLevel(Node **node, std::vector<std::string> &def, int& heightToChange, int height)
+{
+    while (heightToChange != height)
+    {
+        heightToChange--;
+        bool comeBy = (*node)->comeBy;
+        (*node) = (*node)->parent;
+        if (comeBy)
+            def.push_back((*node)->question);
+        else
+            def.push_back(negition + (*node)->question);
+    }
+
+}
+
 void Akinator::Compare(const std::string& first, const std::string& second)
 {
-    Node *node1, *node2;
-    if (_characters.count(first))
-    {
-        node1 = _characters[first];
-    }
-    else
-    {
-        buffer = "Нет персонажа " + first + '\n';
-        write();
+    bool NoCharacter = false;
+    Node *node1 = GetCharacter(first, NoCharacter), *node2 = GetCharacter(second, NoCharacter);
+    if (NoCharacter)
         return;
-    }
-    if (_characters.count(second))
-    {
-        node2 = _characters[second];
-    }
-    else
-    {
-        buffer = "Нет персонажа " + second + '\n';
-        write();
-        return;
-    }
 
     int hight1 = 1, hight2 = 1;
     while (node1->parent)
@@ -182,30 +216,10 @@ void Akinator::Compare(const std::string& first, const std::string& second)
 
     std::vector<std::string> def, def1, def2;
 
-    while (hight1 != hight2)
-    {
-        if (hight1 > hight2)
-        {
-            hight1--;
-            bool comeBy = node1->comeBy;
-            node1 = node1->parent;
-            if (comeBy)
-                def1.push_back(node1->question);
-            else
-                def1.push_back("не " + node1->question);
-
-        }
-        else
-        {
-            hight2--;
-            bool comeBy = node2->comeBy;
-            node2 = node2->parent;
-            if (comeBy)
-                def2.push_back(node2->question);
-            else
-                def2.push_back("не " + node2->question);
-        }
-    }
+    if (hight1 > hight2)
+        GoToOneLevel(&node1, def1, hight1, hight2);
+    else if (hight2 > hight1)
+        GoToOneLevel(&node2, def2, hight2, hight1);
 
     while (node1 != node2)
     {
@@ -216,12 +230,12 @@ void Akinator::Compare(const std::string& first, const std::string& second)
         if (comeBy1)
             def1.push_back(node1->question);
         else
-            def1.push_back("не " + node1->question);
+            def1.push_back(negition + node1->question);
 
         if (comeBy2)
             def2.push_back(node2->question);
         else
-            def2.push_back("не " + node2->question);
+            def2.push_back(negition + node2->question);
     }
     while (node1->parent)
     {
@@ -230,26 +244,10 @@ void Akinator::Compare(const std::string& first, const std::string& second)
         if (comeBy)
             def.push_back(node1->question);
         else
-            def.push_back("не " + node1->question);
+            def.push_back(negition + node1->question);
     }
 
-
-    std::cout << "Общее: ";
-    for (int i = def.size() - 1; i >= 0; --i)
-    {
-        std::cout << def[i] << ", ";
-    }
-    std::cout << '\n' << first << ": ";
-    for (int i = def1.size() - 1; i >= 0; --i)
-    {
-        std::cout << def1[i] << ", ";
-    }
-    std::cout << '\n' << second << ": ";
-    for (int i = def2.size() - 1; i >= 0; --i)
-    {
-        std::cout << def2[i] << ", ";
-    }
-    std::cout << '\n';
+    PrintDefinition(first, second, def, def1, def2);
 }
 
 void Akinator::WriteToDotFile(const char *fileOut)

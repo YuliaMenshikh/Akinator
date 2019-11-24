@@ -120,4 +120,13 @@ private:
      * @return pointer to the new node
      */
     Node* ReadNode(const Text& text, int& currentInd, Node* parent, bool comeBy);
+
+    void NotGuessCase(Node* current);
+
+    Node* GetCharacter(const std::string& character, bool& NoCharacter);
+
+    void PrintDefinition(const std::string& first, const std::string& second,
+            std::vector<std::string> & def, std::vector<std::string> & def1, std::vector<std::string> & def2);
+
+    void GoToOneLevel(Node** node, std::vector<std::string>& def, int& heightToChange, int height);
 };

@@ -17,3 +17,5 @@ const char* filled_red = "[style = filled, fillcolor = indianred1];\n";
 const char* end_of_str = ";\n";
 
 const char* prologue_Digraph = "Digraph{\n";
+
+const char* negition = "не ";
